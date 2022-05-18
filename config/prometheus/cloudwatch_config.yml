@@ -1,0 +1,173 @@
+region: ap-southeast-2
+metrics:
+  # ----------- ELB ---------
+- aws_namespace: AWS/ApplicationELB
+  aws_metric_name: RequestCount
+  aws_dimensions:
+  - LoadBalancer
+  - TargetGroup
+  - AvailabilityZone
+  aws_dimension_select:
+     LoadBalancerName: sigma-alb
+  aws_statistics:
+  - Average
+- aws_namespace: AWS/ApplicationELB
+  aws_metric_name: TargetResponseTime
+  aws_dimensions:
+  - TargetGroup
+  - LoadBalancer
+  - AvailabilityZone
+  aws_dimension_select:
+     LoadBalancerName: sigma-alb
+  aws_statistics:
+  - Average
+- aws_namespace: AWS/ApplicationELB
+  aws_metric_name: RequestCountPerTarget
+  aws_dimensions:
+  - TargetGroup
+  - LoadBalancer
+  aws_dimension_select:
+    TargetGroupName: sigma-target-group
+  aws_statistics:
+  - Sum
+- aws_namespace: AWS/ApplicationELB
+  aws_metric_name: HTTPCode_Target_2XX_Count
+  aws_dimensions:
+  - LoadBalancer
+  - AvailabilityZone
+  aws_dimension_select:
+    LoadBalancerName: sigma-alb
+  aws_statistics:
+  - Sum
+- aws_namespace: AWS/ApplicationELB
+  aws_metric_name: HTTPCode_Target_4XX_Count
+  aws_dimensions:
+  - LoadBalancer
+  - AvailabilityZone
+  aws_dimension_select:
+     LoadBalancerName: sigma-alb
+  aws_statistics:
+  - Sum
+- aws_namespace: AWS/ApplicationELB
+  aws_metric_name: HTTPCode_Target_5XX_Count
+  aws_dimensions:
+  - LoadBalancer
+  - AvailabilityZone
+  aws_dimension_select:
+     LoadBalancerName: sigma-alb
+  aws_statistics:
+  - Sum
+- aws_namespace: AWS/ApplicationELB
+  aws_metric_name: HTTPCode_ELB_503_Count
+  aws_dimensions:
+  - LoadBalancer
+  - AvailabilityZone
+  aws_dimension_select:
+     LoadBalancerName: sigma-lb
+  aws_statistics:
+  - Sum
+- aws_namespace: AWS/ApplicationELB
+  aws_metric_name: HTTPCode_ELB_4XX_Count
+  aws_dimensions:
+  - LoadBalancer
+  - AvailabilityZone
+  aws_dimension_select:
+    LoadBalancerName: sigma-lb
+  aws_statistics:
+  - Sum
+- aws_namespace: AWS/ApplicationELB
+  aws_metric_name: HTTPCode_ELB_5XX_Count
+  aws_dimensions:
+  - LoadBalancer
+  - AvailabilityZone
+  aws_dimension_select:
+     LoadBalancerName: sigma-lb
+  aws_statistics:
+  - Sum
+  # ----------- ECS ---------
+- aws_dimensions:
+  - ClusterName
+  - ServiceName
+  aws_metric_name: CPUUtilization
+  aws_namespace: AWS/ECS
+  aws_statistics:
+  - Average
+- aws_dimensions:
+  - ClusterName
+  - ServiceName
+  aws_metric_name: MemoryUtilization
+  aws_namespace: AWS/ECS
+  aws_statistics:
+  - Average
+  # ----------- EC2 ---------
+- aws_dimensions:
+  - InstanceId
+  aws_metric_name: CPUUtilization
+  aws_namespace: AWS/EC2
+  aws_statistics:
+  - Average
+  aws_tag_select:
+    resource_type_selection: ec2:instance
+    resource_id_dimension: InstanceId
+- aws_dimensions:
+  - InstanceId
+  aws_metric_name: NetworkIn
+  aws_namespace: AWS/EC2
+  aws_statistics:
+  - Average
+  aws_tag_select:
+    resource_type_selection: ec2:instance
+    resource_id_dimension: InstanceId
+- aws_dimensions:
+  - InstanceId
+  aws_metric_name: NetworkOut
+  aws_namespace: AWS/EC2
+  aws_statistics:
+  - Average
+  aws_tag_select:
+    resource_type_selection: ec2:instance
+    resource_id_dimension: InstanceId
+
+  # ----------- RDS ---------
+- aws_namespace: AWS/RDS
+  aws_metric_name: CPUUtilization
+  aws_dimensions:
+  - EngineName
+  aws_statistics:
+  - Average
+- aws_namespace: AWS/RDS
+  aws_metric_name: DBLoad
+  aws_dimensions:
+  - DBInstanceIdentifier
+  aws_statistics:
+  - Average
+- aws_dimensions:
+  - DBInstanceIdentifier
+  aws_metric_name: FreeStorageSpace
+  aws_namespace: AWS/RDS
+  aws_statistics:
+  - Average
+- aws_dimensions:
+  - DBInstanceIdentifier
+  aws_metric_name: FreeableMemory
+  aws_namespace: AWS/RDS
+  aws_statistics:
+  - Average
+- aws_dimensions:
+  - DBInstanceIdentifier
+  aws_metric_name: DiskQueueDepth
+  aws_namespace: AWS/RDS
+  aws_statistics:
+  - Average
+- aws_dimensions:
+  - DBInstanceIdentifier
+  aws_metric_name: ReadLatency
+  aws_namespace: AWS/RDS
+  aws_statistics:
+  - Average
+- aws_dimensions:
+  - DBInstanceIdentifier
+  aws_metric_name: WriteLatency
+  aws_namespace: AWS/RDS
+  aws_statistics:
+  - Average

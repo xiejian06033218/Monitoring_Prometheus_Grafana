@@ -1,0 +1,39 @@
+region: us-east-1
+metrics:
+# ----------- CloudFront ---------
+- aws_dimensions:
+  - DistributionId
+  - Region
+  # aws_dimension_select:
+  #   DistributionId: E3J7GK8LD0SJA4
+  aws_metric_name: Requests
+  aws_namespace: AWS/CloudFront
+  aws_statistics:
+  - Sum
+- aws_dimensions:
+  - DistributionId
+  - Region
+  # aws_dimension_select:
+  #   DistributionId: E3J7GK8LD0SJA4
+  aws_metric_name: TotalErrorRate
+  aws_namespace: AWS/CloudFront
+  aws_statistics:
+  - Sum
+- aws_dimensions:
+  - DistributionId
+  - Region
+  # aws_dimension_select:
+  #   DistributionId: E3J7GK8LD0SJA4
+  aws_metric_name: 4xxErrorRate
+  aws_namespace: AWS/CloudFront
+  aws_statistics:
+  - Sum
+- aws_dimensions:
+  - DistributionId
+  - Region
+  # aws_dimension_select:
+  #   DistributionId: E3J7GK8LD0SJA4
+  aws_metric_name: 5xxErrorRate
+  aws_namespace: AWS/CloudFront
+  aws_statistics:
+  - Sum
